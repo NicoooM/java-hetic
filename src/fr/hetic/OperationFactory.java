@@ -2,16 +2,16 @@ package fr.hetic;
 
 
 public class OperationFactory {
-    public static Operation getOperation(String op) throws Exception {
+    public static Operation getOperation(String op) {
         switch (op) {
             case "+":
-                return new Addition();
+                return (a, b) -> a + b;
             case "-":
-                return new Subtraction();
+                return (a, b) -> a - b;
             case "*":
-                return new Multiplication();
+                return (a, b) -> a * b;
             default:
-                throw new Exception("Unknown operation");
+                throw new IllegalArgumentException("Unknown operation");
         }
     }
 }

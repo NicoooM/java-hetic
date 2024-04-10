@@ -1,36 +1,30 @@
 package fr.hetic;
 
 import java.io.*;
+import java.nio.file.*;
+import java.util.stream.*;
 
 
 public class FileProcessor {
 
     public void processDirectory(File folder) {
-        File[] listOfFiles = folder.listFiles();
-        if (listOfFiles == null) {
-            return;
-        }
-
-        for (File file : listOfFiles) {
-            if (file.isFile() && file.getName().endsWith(".op")) {
-                processFile(file);
-            } else if (file.isDirectory()) {
-                processDirectory(file); // Recursively process subdirectories
-            }
+        try (Stream<Path> paths = Files.walk(folder.toPath())) {
+            paths.filter(Files::isRegularFile)
+                .filter(path -> path.toString().endsWith(".op"))
+                .forEach(path -> processFile(path.toFile()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void processFile(File file) {
-        System.out.println("Processing file: " + file.getName());
-        File resultFile = new File(file.getParent(), file.getName().replaceFirst("[.][^.]+$", "") + ".res");
+    public void processFile(File file) {
+        Path path = file.toPath();
+        Path resultPath = Paths.get(file.getParent(), file.getName().replaceFirst("[.][^.]+$", "") + ".res");
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file));
-             PrintWriter writer = new PrintWriter(new FileWriter(resultFile))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String result = processLine(line);
-                writer.println(result);
-            }
+        try (Stream<String> lines = Files.lines(path);
+             PrintWriter writer = new PrintWriter(Files.newBufferedWriter(resultPath))) {
+            lines.map(this::processLine) 
+                 .forEach(writer::println); 
         } catch (IOException e) {
             System.err.println("Error processing file: " + file.getName());
             e.printStackTrace();
