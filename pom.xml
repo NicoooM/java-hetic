@@ -39,6 +39,14 @@
 			<version>42.7.3</version>
 		</dependency>	
 
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>6.1.5</version>
+		</dependency>
+
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -67,7 +75,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>fr.hetic.DBToFileProcessor</mainClass>
+                    <mainClass>fr.hetic.Calculateur</mainClass>
                 </configuration>
             </plugin>
         </plugins>
