@@ -63,7 +63,7 @@ public class DBToFileProcessor {
             }
         }
 
-        Path path = Path.of("db-output/" + fileId + ".res");
+        Path path = Path.of("db-output/" + fileName + ".res");
         FileProcessor.writeFile(path, operations);
     }
 
