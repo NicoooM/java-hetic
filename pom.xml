@@ -31,7 +31,13 @@
 			<version>5.10.2</version>
 			<scope>test</scope>
 		</dependency>
-	
+
+		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.3</version>
+		</dependency>	
 
 	</dependencies>
 	<build>
@@ -46,6 +52,24 @@
 				<artifactId>maven-failsafe-plugin</artifactId>
 				<version>${maven-failsafe-plugin.version}</version>
 			</plugin>
+			<plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            
+            <!-- Maven Exec Plugin -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>fr.hetic.DBToFileProcessor</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
 	</build>
 </project>

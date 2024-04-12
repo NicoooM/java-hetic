@@ -4,4 +4,6 @@ fr/hetic/Addition.class
 fr/hetic/Multiplication.class
 fr/hetic/Subtraction.class
 fr/hetic/OperationFactory.class
+fr/hetic/DatabaseConnector.class
 fr/hetic/FileProcessor.class
+fr/hetic/DBToFileProcessor.class

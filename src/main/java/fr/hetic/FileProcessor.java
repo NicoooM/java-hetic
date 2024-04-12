@@ -3,6 +3,7 @@ package fr.hetic;
 import java.io.*;
 import java.nio.file.*;
 import java.util.stream.*;
+import java.util.List;
 
 
 public class FileProcessor {
@@ -28,6 +29,20 @@ public class FileProcessor {
         } catch (IOException e) {
             System.err.println("Error processing file: " + file.getName());
             e.printStackTrace();
+        }
+    }
+
+    public static void writeFile(Path filePath, List<String> content) {
+        File file = filePath.toFile();
+        file.getParentFile().mkdirs();
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (String line : content) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing to the file: " + e.getMessage());
         }
     }
 
